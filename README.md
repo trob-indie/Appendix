@@ -15,5 +15,3 @@ Appendix is a Chrome extension that allows you to append a query parameter to th
 
 ## Limitations
 * Currently, Appendix only supports one hardcoded query parameter.
-* Query parameter can not be toggled off without navigating to the previous page in Chrome.
-* Successive clicks on the extension's icon will keep adding the same query parameter over, and over... and over
