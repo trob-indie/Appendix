@@ -28,6 +28,7 @@ function restore_options() {
     } else {
       document.getElementById('reactant_0').value = "xYextDebug";
       document.getElementById('product_0').value = "true";
+      document.getElementById('enable_0').checked = true;
     }
   });
 }
@@ -36,8 +37,10 @@ function save_options() {
   var data = {};
   var inputs = document.querySelectorAll('.queryParameters > input[type=text]');
   for (var i = 0; i < inputs.length; i += 2) {
-    data["reactant_" + i/2] = inputs[i].value;
-    data["product_" + i/2] = inputs[i+1].value;
+    if(inputs[i].value !== '' && inputs[i+1].value !== '') {
+      data["reactant_" + i/2] = inputs[i].value;
+      data["product_" + i/2] = inputs[i+1].value;
+    }
   }
 
   var enablers = document.querySelectorAll('.queryParameters > input[type=checkbox]');
@@ -58,21 +61,28 @@ function save_options() {
       status.textContent = 'Options saved.';
       setTimeout(function() {
         status.textContent = '';
-      }, 750);
+      }, 1500);
     });
   } else {
     var status = document.getElementById('status');
-    status.textContent = 'One query parameter can be active at a time.';
+    status.textContent = 'One query parameter should be active at a time.';
     setTimeout(function() {
       status.textContent = '';
-    }, 750);
+    }, 1500);
   }
 }
 
 function add_option() {
-  var inputs = document.querySelectorAll('.queryParameters > input');
+  var inputs = document.querySelectorAll('.queryParameters > input[type=text]');
   var newIndex = inputs.length/2;
   create_new_option(newIndex);
+}
+
+function clear_list() {
+  chrome.storage.sync.clear();
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+  });
 }
 
 function create_new_option(index)
@@ -87,8 +97,8 @@ function create_new_option(index)
   reactant.setAttribute("name", "reactant");
   var product = document.createElement("input");
   product.setAttribute("id", "product_" + index);
-  reactant.setAttribute("type", "text");
-  reactant.setAttribute("name", "product");
+  product.setAttribute("type", "text");
+  product.setAttribute("name", "product");
   var separator = document.createElement("span");
   separator.innerText = " = ";
   document.querySelector('.queryParameters').appendChild(activeCheckbox);
@@ -103,6 +113,4 @@ document.getElementById('save').addEventListener('click',
     save_options);
 document.getElementById('add').addEventListener('click',
     add_option);
-document.getElementById('flush').addEventListener('click', function() {
-    chrome.storage.sync.clear();
-});
+document.getElementById('flush').addEventListener('click', clear_list);

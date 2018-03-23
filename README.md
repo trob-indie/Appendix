@@ -12,6 +12,3 @@ Appendix is a Chrome extension that allows you to append a query parameter to th
 1. Clone the repo
 2. Go to chrome://extensions/ and turn on "Developer mode"
 3. Drag and drop the Appendix folder into your browser window
-
-## Limitations
-* Currently, Appendix only supports one hardcoded query parameter.
