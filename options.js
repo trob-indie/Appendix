@@ -61,14 +61,14 @@ function save_options() {
       status.textContent = 'Options saved.';
       setTimeout(function() {
         status.textContent = '';
-      }, 1500);
+      }, 2500);
     });
   } else {
     var status = document.getElementById('status');
     status.textContent = 'One query parameter should be active at a time.';
     setTimeout(function() {
       status.textContent = '';
-    }, 1500);
+    }, 2500);
   }
 }
 
@@ -101,8 +101,8 @@ function create_new_option(index)
   product.setAttribute("name", "product");
   var separator = document.createElement("span");
   separator.innerText = " = ";
-  document.querySelector('.queryParameters').appendChild(activeCheckbox);
   document.querySelector('.queryParameters').appendChild(newline);
+  document.querySelector('.queryParameters').appendChild(activeCheckbox);
   document.querySelector('.queryParameters').appendChild(reactant);
   document.querySelector('.queryParameters').appendChild(separator);
   document.querySelector('.queryParameters').appendChild(product);

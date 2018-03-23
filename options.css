@@ -1,1 +1,26 @@
+input
+{
+  margin-bottom: 15px;
+}
 
+.title
+{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.buttons
+{
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.buttons button:not(:first-child)
+{
+  margin-left: 120px;
+}
+
+#status
+{
+  font-size: 14px;
+}
